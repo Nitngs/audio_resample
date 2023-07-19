@@ -1,11 +1,10 @@
-/* memcpy */
 // #include <iostream>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> /* memcpy */
 #include <math.h>
 // #include <cmath.h>
 
-#include "pps_media_audio_webrtc_resample.h"
+#include "audio_resample_webrtc.h"
 
 // webrtc resample
 #define RESAMPLE_M_PI (3.14159265358979323846) /* pi */
@@ -151,8 +150,7 @@ static void pushSincResampleRun(int frames, float *destination)
     return;
 }
 
-// int pps_media_audio_resample_webrtc_s16_init(int src_samplerate, int dst_samplerate, int *src_frames, int *dst_frames)
-int pps_media_audio_resample_webrtc_s16_init(int src_samplerate, int dst_samplerate)
+int audio_resample_webrtc_s16_init(int src_samplerate, int dst_samplerate)
 {
     if ((src_samplerate <= 0) || (dst_samplerate <= 0))
     {
@@ -322,10 +320,10 @@ static void FloatS16ToS16(const float *src, int size, short *dest)
     return;
 }
 
-int pps_media_audio_resample_webrtc_s16_process(const short *source,
-                                                int source_length,
-                                                short *destination,
-                                                int destination_capacity)
+int audio_resample_webrtc_s16_process(const short *source,
+                                        int source_length,
+                                        short *destination,
+                                        int destination_capacity)
 {
     if ((NULL == source) || (NULL == destination) || (source_length <= 0) || (destination_capacity <= 0))
     {
@@ -349,7 +347,7 @@ int pps_media_audio_resample_webrtc_s16_process(const short *source,
     return 0;
 }
 
-void pps_media_audio_resample_webrtc_s16_deinit(void)
+void audio_resample_webrtc_s16_deinit(void)
 {
     // g_PushSincResampler
     if (NULL != g_PushSincResampler.float_buffer_)
